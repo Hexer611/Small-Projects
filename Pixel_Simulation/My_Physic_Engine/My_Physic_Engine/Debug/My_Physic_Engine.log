@@ -1,5 +1,0 @@
-﻿  My_Physic_Engine.cpp
-D:\.ALLPROJECTSAREHERE\pixel_proje\My_Physic_Engine\My_Physic_Engine\My_Physic_Engine.cpp(33,16): warning C4244: 'başlatılıyor': 'double' - 'int' dönüşümü; veri kaybı olabilir
-D:\.ALLPROJECTSAREHERE\pixel_proje\My_Physic_Engine\My_Physic_Engine\My_Physic_Engine.cpp(64,18): warning C4018: '>': imzalı/imzasız uyuşmazlığı
-D:\.ALLPROJECTSAREHERE\pixel_proje\My_Physic_Engine\My_Physic_Engine\My_Physic_Engine.cpp(447,25): warning C4244: '=': 'double' - 'int' dönüşümü; veri kaybı olabilir
-  My_Physic_Engine.vcxproj -> D:\.ALLPROJECTSAREHERE\pixel_proje\My_Physic_Engine\Debug\My_Physic_Engine.exe
