@@ -1,0 +1,14 @@
+.\Input_Images
+1
+.\Boosted_Images
+
+---------------------------------------------------------------------
+Parameters;
+1- Input Folder
+2- '0' sets all pixels' hue values to max.
+   '1' doubles all pixels' hue values.
+   '2' sets all pixels' hue values as max if its bigger than %10.
+3- Output Folder
+
+Output;
+Produces an output where the hue of the pixels are boosted.

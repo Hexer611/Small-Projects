@@ -1,0 +1,12 @@
+.\Input_Images
+blue
+.\Focused_Images
+
+---------------------------------------------------------------------
+Parameters;
+1- Input Folder
+2- Choose one of 'green', 'blue', 'red'.
+3- Output Folder
+
+Output;
+Produces an output image where it is black and white except the color you choose.
