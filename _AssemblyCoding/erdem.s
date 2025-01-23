@@ -33,13 +33,16 @@ erdem_loop:
     ret
 
 erdem_strcpy:
-    mov al, [rdx]
+    mov rdi, rcx
+    mov rsi, rdx
+erdem_strcpy_main:
+    mov al, [rsi]
+    mov byte [rdi], al
     cmp al, 0                  ; compare if the char we read is the end of the string
-    je .returnfunc
+    je .ret_strcpy
 
-    mov byte [rcx], al
-    inc rdx
-    inc rcx
-    jmp erdem_strcpy
-.returnfunc:                          ; finish him
+    inc rdi
+    inc rsi
+    jmp erdem_strcpy_main
+.ret_strcpy:                          ; finish him
     ret
