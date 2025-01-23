@@ -17,7 +17,7 @@
 ; Other aggregates, as pointers	                stack	                R9	R8	RDX	RCX
 ; __m128, as a pointer	                        stack	                R9	R8	RDX	RCX
 
-global erdem_strlen
+global erdem_strlen, erdem_strcpy
 section .text
 
 erdem_strlen:
@@ -25,9 +25,21 @@ erdem_strlen:
 erdem_loop:
     movzx rdx, byte [rcx]       ; load first char from the pointer, hopefully it exists
     cmp rdx, 0                  ; compare if the char we read is the end of the string
-    je found                    ; je means the previous comparison is equal i hope. jg is greater, jl is less??
+    je .returnfunc               ; je means the previous comparison is equal i hope. jg is greater, jl is less??
     inc rcx                     ; if we didn't find the last char we increase the pointer to next char
     inc rax                     ; if we didn't find the last char we increase the rax value by one which is the char count
     jmp erdem_loop              ; go back to counting characters :D
-found:                          ; finish him
+.returnfunc:                    ; finish him
+    ret
+
+erdem_strcpy:
+    mov al, [rdx]
+    cmp al, 0                  ; compare if the char we read is the end of the string
+    je .returnfunc
+
+    mov byte [rcx], al
+    inc rdx
+    inc rcx
+    jmp erdem_strcpy
+.returnfunc:                          ; finish him
     ret
