@@ -17,7 +17,7 @@
 ; Other aggregates, as pointers	                stack	                R9	R8	RDX	RCX
 ; __m128, as a pointer	                        stack	                R9	R8	RDX	RCX
 
-global erdem_strlen, erdem_strcpy
+global erdem_strlen, erdem_strcpy, erdem_strcmp
 section .text
 
 erdem_strlen:
@@ -45,4 +45,29 @@ erdem_strcpy_main:
     inc rsi
     jmp erdem_strcpy_main
 .ret_strcpy:                          ; finish him
+    ret
+
+erdem_strcmp:
+    mov rdi, rcx
+    mov rsi, rdx
+erdem_strcmp_main:
+    mov al, [rsi]
+    mov bl, [rdi]
+    cmp al, bl                  ; compare if the char we read is the end of the string
+    ja .ret_strcmp_g
+    jb .ret_strcmp_l
+    cmp al, 0                  ; compare if the char we read is the end of the string
+    je .ret_strcmp_e
+
+    inc rdi
+    inc rsi
+    jmp erdem_strcmp_main
+.ret_strcmp_g:                          ; finish him
+    mov rax, -1
+    ret
+.ret_strcmp_l:                          ; finish him
+    mov rax, 1
+    ret
+.ret_strcmp_e:                          ; finish him
+    mov rax, 0
     ret

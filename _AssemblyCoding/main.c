@@ -3,6 +3,7 @@
 
 int erdem_strlen(char* c);
 void erdem_strcpy(char* dst, char* src);
+int erdem_strcmp(char* c1, char* c2);
 
 int main()
 {
@@ -21,6 +22,12 @@ int main()
 
     printf("string.h function copy: src: %s dst: %s\n", source1, dest1);
     printf("assembly function copy: src: %s dst: %s\n", source2, dest2);
+
+    char cmp1 [] = "1";
+    char cmp2 [] = "1";
+
+    printf("string.h cmp: %d\n", strcmp(cmp1, cmp2));
+    printf("assembly cmp: %d\n", erdem_strcmp(cmp1, cmp2));
 
     return 0;
 }
