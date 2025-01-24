@@ -34,7 +34,7 @@ typedef struct my_pix
 						color = 0xFFEACE6A;
 						break;
 					case 1:
-						color = 0x000000FF;
+						color = 0xFF00FFFF;
 						break;
 					default:
 						color = background_color;

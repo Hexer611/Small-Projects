@@ -19,7 +19,7 @@ void Render(SDL_Texture *texture);
 void Render_Pixel();
 void SIMULATED_RESET();
 void EVENT_SDL_HANDLER(SDL_Event* sdl_event);
-UINT32 FPS_COUNTER(UINT32 interval, void* param);
+Uint32 FPS_COUNTER(void *param, SDL_TimerID timerID, Uint32 interval);
 
 //Main pixel variable
 my_pixel **mp;
@@ -84,10 +84,10 @@ void MY_INITIALIZATIONS()
 
 void MY_SDL_INITIALIZATIONS()
 {
-	SDL_Init(SDL_INIT_AUDIO | SDL_INIT_EVENTS | SDL_INIT_VIDEO | SDL_INIT_TIMER);
-	SDL_CreateWindowAndRenderer(screen_x_size, screen_y_size, 0, &win, &ren);
+	SDL_Init(SDL_INIT_AUDIO | SDL_INIT_EVENTS | SDL_INIT_VIDEO);
+	SDL_CreateWindowAndRenderer("window title", screen_x_size, screen_y_size, 0, &win, &ren);
 	//SDL_SetWindowPosition(win, 0, 0);
-	SDL_SetWindowBordered(win, SDL_bool(is_borderless));
+	SDL_SetWindowBordered(win, bool(is_borderless));
 	SDL_SetRenderDrawColor(ren, 0, 0, 0, 0);
 	SDL_RenderClear(ren);
 	SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
@@ -321,8 +321,9 @@ void Render(SDL_Texture* texture)
 {
 	Render_Pixel();
 	SDL_UpdateTexture(texture, NULL, pixels, screen_x_size * sizeof(UINT32));
-	//SDL_RenderClear(ren);
-	SDL_RenderCopy(ren, texture, NULL, NULL);
+	SDL_SetRenderDrawColor(ren, 0,0,0,1);
+	SDL_RenderClear(ren);
+	SDL_RenderTexture(ren, texture, NULL, NULL);
 	SDL_RenderPresent(ren);
 }
 
@@ -442,7 +443,7 @@ void EVENT_SDL_HANDLER(SDL_Event* sdl_event)
 	{
 		switch (sdl_event->type)
 		{
-			case SDL_KEYDOWN:
+			case SDL_EVENT_KEY_DOWN:
 				stop_water = !stop_water;
 				frameDelay = 1000.0 / FPS;
 				break;
@@ -452,7 +453,7 @@ void EVENT_SDL_HANDLER(SDL_Event* sdl_event)
 	}
 }
 
-UINT32 FPS_COUNTER(UINT32 interval, void *param)
+Uint32 FPS_COUNTER(void *param, SDL_TimerID timerID, Uint32 interval)
 {
 	printf("FPS: %d\n", one_second_frame_count);
 	one_second_frame_count = 0;
