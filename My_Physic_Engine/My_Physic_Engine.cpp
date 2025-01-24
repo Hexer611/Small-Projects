@@ -126,6 +126,10 @@ void Generate_Pixel(int *a)
 
 void PIXEL_PHYSIC_CALCULATOR()
 {
+	for (int i = mp_size_x-1; i < mp_size_x; i++)
+		for (int j = mp_size_y - 1; j > -1; j--)
+				mp[j][i].filled = true;
+
 	for (int i = 0; i < mp_size_x; i++)
 	//for (int i = mp_size_x - 1; i > -1; i--)
 	{
