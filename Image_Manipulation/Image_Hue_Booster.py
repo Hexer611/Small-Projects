@@ -16,18 +16,22 @@ change_operation = change_operation[:-1]  # Deleting '\0' character in the line.
 output_folder = r_cfg_file[2]
 output_folder = output_folder[:-1]  # Deleting '\0' character in the line.
 
+def hueBoostImage(image, change_operation):
+    image = cv.cvtColor(image, cv.COLOR_BGR2HSV)
+    if change_operation == '0':
+        image[..., 1] = 255
+    elif change_operation == '1':
+        image[..., 1] = np.where(image[..., 1] > 127, 255, image[..., 1] + image[..., 1])
+    elif change_operation == '2':
+        image[..., 1] = np.where(image[..., 1] > 25, 255, image[..., 1])
+    image = cv.cvtColor(image, cv.COLOR_HSV2BGR)
+    return image
+
 if os.path.exists(input_folder):
     for (dirpath, dirnames, filenames) in os.walk(input_folder):
         for file in filenames:
             image = cv.imread(dirpath + '\\' + file)
-            image = cv.cvtColor(image, cv.COLOR_BGR2HSV)
-            if change_operation == '0':
-                image[..., 1] = 255
-            elif change_operation == '1':
-                image[..., 1] = np.where(image[..., 1] > 127, 255, image[..., 1] + image[..., 1])
-            elif change_operation == '2':
-                image[..., 1] = np.where(image[..., 1] > 25, 255, image[..., 1])
-            image = cv.cvtColor(image, cv.COLOR_HSV2BGR)
+            hueBoostImage(image, change_operation)
             if not os.path.exists(output_folder):
                 os.mkdir(output_folder)
             cv.imwrite(output_folder + '\\' + file, image)
